@@ -1,0 +1,17 @@
+.slider{
+    margin: 100px;
+    position: relative;
+    height: 10px;
+    border-radius: 10px;
+    background-color: lightgrey;
+    box-sizing: border-box;
+    &__thumb{
+        box-sizing: border-box;
+        position: absolute;
+        top: -5px;
+        width: 20px;
+        height: 20px;
+        background-color: #53b6a8;
+        border-radius: 50%;
+    }
+}
