@@ -27,7 +27,7 @@ declare global{
         };
 
         return this.each(function(){
-
+             
         });
     }
 
