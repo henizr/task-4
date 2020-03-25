@@ -25,11 +25,13 @@ export default class View{
 	    	attributes: true,
 		}	
 		const callback = function(mutationsList: any, observer: any) {
+            
 		    for (let mutation of mutationsList) {
+                console.log(mutation.type);
 		        if (mutation.type === 'attributes') {
 		             const dataFromUpdatedAttributes = {
 		             	[mutation.attributeName]: target.getAttribute(mutation.attributeName),	
-		             	eventName: 'view-updated-from-outside',	    
+		             	'eventName': 'view-updated-from-outside',	    
 		             };
 		             broadcastCallback(dataFromUpdatedAttributes);
 		        }
