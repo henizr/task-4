@@ -14,7 +14,7 @@ beforeEach(()=>{
     target = document.querySelector('.js-slider');
     sliderAttributes = {'min': '0', 'max': '9', 'step': '1' };
 
-    view = new View(sliderAttributes, target);
+    view = new View(target);
     view.render(sliderAttributes);
 })
 

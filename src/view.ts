@@ -1,6 +1,6 @@
 export default class View{
     private thumb: HTMLDivElement;
-    constructor(private sliderAttributes: { [key: string]: number | string }, private slider: any){
+    constructor(private slider: any){
         this.slider.className = 'slider';
         this.thumb = document.createElement('div');
         this.thumb.className = 'slider__thumb';
@@ -10,7 +10,7 @@ export default class View{
 
         document.body.appendChild(this.slider);
 
-        this.setAttributes(this.sliderAttributes);
+        this.setAttributes(modelData);
     }
     public setAttributes(sliderAttributes: { [key: string]: number | string }) {
         for (let attribute of Object.keys(sliderAttributes)){
