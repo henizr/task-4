@@ -2,10 +2,11 @@ import EventObserver from '../eventObserver';
 
 let observer: EventObserver;
 let callback: object;
+let answer: string;
 
 beforeEach(()=>{
-    observer= new EventObserver();
-    callback = ()=> console.log('It is a callback function');
+    observer = new EventObserver();
+    callback = (message: string)=> answer = message;
     observer.subscribe('view-updated-from-outside', callback);
 });
 
@@ -19,6 +20,7 @@ describe('Тестирование класса "EventObserver"', ()=>{
         expect(observer.events['view-updated-from-outside']).toEqual([]);
     });
     test('Метод "broadcast" должен посылать широковещательное сообщение всем подписчикам', ()=>{
-        
+        observer.broadcast('view-updated-from-outside', 'It is a message');
+        expect(answer).toEqual('It is a message');
     });
 });
