@@ -20,24 +20,15 @@ export default class View{
     public getAttributes(){
         return Object.assign({}, this.slider.dataset);
     }
-    public observeAttributesMutation(target: any, broadcastCallback: any){
-        const config = {
-	    	attributes: true,
-		}	
-		const callback = function(mutationsList: any, observer: any) {
-            
-		    for (let mutation of mutationsList) {
-                console.log(mutation.type);
-		        if (mutation.type === 'attributes') {
-		             const dataFromUpdatedAttributes = {
-		             	[mutation.attributeName]: target.getAttribute(mutation.attributeName),	
-		             	'eventName': 'view-updated-from-outside',	    
-		             };
-		             broadcastCallback(dataFromUpdatedAttributes);
-		        }
-		    }
-		};
-		const observer = new MutationObserver(callback);
+    public observeAttributesMutation(target: any, callback: any){
+        const observer = new MutationObserver((mutationsList)=>{
+            for (let mutation of mutationsList) {
+                if (mutation.type === 'attributes') {
+                    callback(mutation.attributeName);
+                }
+            }
+        });
+        const config: {[key: string]: boolean} = { attributes: true }
 		observer.observe(target, config);
-    }
+    } 
 }

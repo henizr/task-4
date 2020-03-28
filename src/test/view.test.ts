@@ -1,10 +1,14 @@
 import $ from 'jquery';
 import View from '../view';
+import EventObserver from '../eventObserver';
+
 let slider: HTMLDivElement;
 let target: any;
-let view: View;
+let view: View; 
 let sliderAttributes: { [key: string]: number | string };
-let updatedAttributes: { [key: string]: number | string };
+let updatedAttributes: string;
+let eventObserver: EventObserver;
+
 
 beforeEach(()=>{
     slider = document.createElement('div');
@@ -13,6 +17,7 @@ beforeEach(()=>{
     
     target = document.querySelector('.js-slider');
     sliderAttributes = {'min': '0', 'max': '9', 'step': '1' };
+    eventObserver = new EventObserver();
 
     view = new View(target);
     view.render(sliderAttributes);
@@ -45,12 +50,19 @@ describe('Тестирование класса "View"', ()=>{
     
     describe('Тестирование метода "observeAttributesMutation"', ()=>{
 
+        const attr = {"min": "5"};
+
         test("Возвращает объект с обновлёнными атриьутами",()=>{
-            view.observeAttributesMutation(target, (dataFromUpdatedAttributes: { [kay: string]: string })=>{
-                console.log(dataFromUpdatedAttributes);
+            view.observeAttributesMutation(target, (attributeName: string)=>{
+                eventObserver.broadcast("view.updated-outside", attributeName);
             });
-            //view.setAttributes({"min": "10"});
-             
+            
+            eventObserver.subscribe("view.updated-outside", (attributeName: string)=>{
+                updatedAttributes =  attributeName;
+                console.log("updatedAttributes " + updatedAttributes);
+            });
+            
+            view.setAttributes(attr);
         })
 
    });

@@ -2,7 +2,7 @@ export default class EventObserver{
     public events: {[key: string]: any[]};
     constructor(){
         this.events = {
-            "view-updated-from-outside": [],
+            "view.updated-outside": [],
         };
     }
     public subscribe(eventName: string, callback: object): void {
