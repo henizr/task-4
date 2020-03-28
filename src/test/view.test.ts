@@ -31,8 +31,8 @@ describe('Тестирование класса "View"', ()=>{
             expect(target).toHaveClass("slider");
         });
         
-        test('Элемент должен содержать "<div class="slider__thumb"></div>"', ()=>{
-            expect(target).toContainHTML('<div class="slider__thumb"></div>');
+        test('Элемент должен содержать "<div class="slider__track"></div><div class="slider__thumb"></div><div class="slider__hint"></div>"', ()=>{
+            expect(target).toContainHTML('<div class="slider__track"></div><div class="slider__thumb"></div><div class="slider__hint"></div>');
         });
     });
     describe('Тестирование метода "setAttributes"', ()=>{
