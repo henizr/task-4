@@ -1,7 +1,7 @@
 export default class View{
     private thumb: HTMLDivElement;
     constructor(private slider: any){
-        this.slider.className = 'slider';
+        this.slider.classList.add('slider');
         this.thumb = document.createElement('div');
         this.thumb.className = 'slider__thumb';
     }
