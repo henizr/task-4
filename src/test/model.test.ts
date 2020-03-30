@@ -1,8 +1,8 @@
 import Model from '../model';
 
-let sliderProperties: {[key: string]: string | number};
+let sliderProperties: {[key: string]: string};
 let model: Model;
-let updatedSliderProperties: {[key: string]: string | number};
+let updatedSliderProperties: {[key: string]: string};
 
 beforeEach(()=>{
     sliderProperties = {'min': '0', 'max': '9', 'step': '1' };

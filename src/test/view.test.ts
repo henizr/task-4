@@ -5,7 +5,7 @@ import EventObserver from '../eventObserver';
 let slider: HTMLDivElement;
 let target: any;
 let view: View; 
-let sliderAttributes: { [key: string]: number | string };
+let sliderAttributes: { [key: string]: string };
 let updatedAttributes: string;
 let eventObserver: EventObserver;
 
