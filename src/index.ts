@@ -13,7 +13,7 @@ let presenter: Presenter;
 
 
 interface sliderOptions{
-    [key: string]: string
+    [key: string]: string | boolean
 }
 declare global{
     interface JQuery {
@@ -30,7 +30,6 @@ declare global{
             "min": "1", 
             "max": "9",
             "step": "1",
-            "mode": "horizontal"
         }, options);
 
         return this.each(function(){
@@ -50,5 +49,5 @@ $(".js-slider").rangeSlider({
     "min": "1",
     "max": "21",
     "step":"1",
-    "mode": "horizontal"
+    horizontal: true,
 })

@@ -1,5 +1,5 @@
 export default class Model{
-    constructor(private sliderProperties: {[key: string]: string}){}
+    constructor(private sliderProperties: {[key: string]: string | boolean}){}
     public getSliderProperties() {
         return this.sliderProperties;
     }
