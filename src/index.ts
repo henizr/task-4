@@ -3,17 +3,14 @@ import jQuery from 'jquery';
 import Presenter from './presenter';
 import View from './view';
 import Model from './model';
+import EventObserver from './eventObserver';
 
 import '../src/blocks/slider/slider.scss';
 
 
-let view: View;
-let model: Model;
-let presenter: Presenter;
-
 
 interface sliderOptions{
-    [key: string]: string | boolean
+    [key: string]: string | number |  boolean;
 }
 declare global{
     interface JQuery {
@@ -27,15 +24,17 @@ declare global{
     $.fn.rangeSlider = function(this: JQuery, options?: sliderOptions) {
 
         const settings: sliderOptions = $.extend({
-            "min": "1", 
-            "max": "9",
-            "step": "1",
+            mode: '',
+            from: 0,
+            min: 1,
+            max: 10,
         }, options);
 
         return this.each(function(){
-            view = new View(this);
-            model = new Model(settings);
-            presenter = new Presenter(view, model);
+            const observer = new EventObserver();
+            const view = new View(this, observer);
+            const model = new Model(settings, observer);
+            const presenter = new Presenter(view, model, observer);
             presenter.initialize();
         });
     }
@@ -46,8 +45,9 @@ declare global{
  
 
 $(".js-slider").rangeSlider({
-    "min": "1",
-    "max": "21",
-    "step":"1",
-    horizontal: true,
+    mode: 'vertical', // horizontal / vertical
+    from: 0,
+    min: 0,
+    max: 5,
+    hint: true,
 })
