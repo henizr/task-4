@@ -1,7 +1,8 @@
 import EventObserver from './eventObserver';
 
 export default class View{
-    private thumb: HTMLDivElement;
+    private thumbFirst: HTMLDivElement;
+    private thumbSecond: HTMLDivElement;
     private track: HTMLDivElement;
     private hint: HTMLDivElement;
 
@@ -11,12 +12,14 @@ export default class View{
     constructor(private slider: HTMLElement, private observer: EventObserver){
         this.slider.classList.add('slider');
         this.track = document.createElement('div');
-        this.thumb = document.createElement('div');
+        this.thumbFirst = document.createElement('div');
+        this.thumbSecond = document.createElement('div');
         this.hint = document.createElement('div');
         
 
         this.track.className = 'slider__track';
-        this.thumb.className = 'slider__thumb';
+        this.thumbFirst.className = 'slider__thumb';
+        this.thumbSecond.className = 'slider__thumb'
         this.hint.className = 'slider__hint';
 
         this.shiftX = 0;
@@ -24,9 +27,10 @@ export default class View{
     }
     public render(){
         this.slider.appendChild(this.track);
-        this.slider.appendChild(this.thumb);
+        this.slider.appendChild(this.thumbFirst);
+        //this.slider.appendChild(this.thumbSecond);
         this.slider.appendChild(this.hint); 
-        this.hint.innerText = "0";
+        
 
 
         this.bindMethods();
@@ -35,7 +39,9 @@ export default class View{
     public drawElements(data: {[key: string]: string | number |  boolean}): void{
         const { mode, from, min, max, hint } = data;
         const thumbOrintation: string = mode==="horizontal"?"left":"top";
-        this.thumb.style.setProperty(thumbOrintation, from + 'px');
+        this.thumbFirst.style.setProperty(thumbOrintation, from + 'px');
+
+        this.hint.innerText = "0";
 
         if(mode!=="horizontal"){
                 this.hint.classList.add('slider__hint_vertical');
@@ -68,9 +74,9 @@ export default class View{
         let to; 
 
         if(mode==="horizontal"){
-            to = (this.track.offsetWidth - this.thumb.offsetWidth) + 25;
+            to = (this.track.offsetWidth - this.thumbFirst.offsetWidth) + 25;
         } else{
-            to = this.track.offsetHeight - this.thumb.offsetHeight + 25;
+            to = this.track.offsetHeight - this.thumbFirst.offsetHeight + 25;
         }
 
         if(from > to){
@@ -90,7 +96,7 @@ export default class View{
  
         const hintText = Math.floor((Number(max) * currentStateInPercent) / 100);  
 
-        this.thumb.style.setProperty(elementsOrintation, (currentStateInPercent) + '%');
+        this.thumbFirst.style.setProperty(elementsOrintation, (currentStateInPercent) + '%');
         this.hint.style.setProperty(elementsOrintation, (currentStateInPercent-hintShift) + '%');
         this.hint.innerHTML = hintText.toString()
     }
@@ -109,8 +115,8 @@ export default class View{
     private onMouseDownHandler(event: MouseEvent){
       
         
-        this.shiftX = event.clientX - this.thumb.getBoundingClientRect().left;
-        this.shiftY = event.clientY - this.thumb.getBoundingClientRect().top;
+        this.shiftX = event.clientX - this.thumbFirst.getBoundingClientRect().left;
+        this.shiftY = event.clientY - this.thumbFirst.getBoundingClientRect().top;
 
         document.addEventListener('mousemove', this.onMouseMoveHandler);
         document.addEventListener('mouseup', this.onMouseUpHandler);
@@ -136,8 +142,8 @@ export default class View{
     }
 
     private bindEvents(){
-        this.thumb.addEventListener('mousedown', this.onMouseDownHandler);
-        this.thumb.ondragstart = function() {
+        this.thumbFirst.addEventListener('mousedown', this.onMouseDownHandler);
+        this.thumbFirst.ondragstart = function() {
             return false;
           };
     }

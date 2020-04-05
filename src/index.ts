@@ -48,6 +48,6 @@ $(".js-slider").rangeSlider({
     mode: 'vertical', // horizontal / vertical
     from: 0,
     min: 0,
-    max: 5,
+    max: 20,
     hint: true,
 })
